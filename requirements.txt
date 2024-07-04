@@ -1,0 +1,4 @@
+numpy==2.0.0
+ipykernel==6.29.4
+astropy==6.1.1
+matplotlib==3.9.0
