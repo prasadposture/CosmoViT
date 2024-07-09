@@ -54,6 +54,18 @@ def file_reader(filename):
     data = np.reshape(data1, (N1,N2,N3), order='C') # row major order: going row-by-row
     return data
 
+def fld_rdr(filename):
+    """
+    fld_rdr: field reader
+    Used for reading the obtained ionized hydrogen fields
+    """
+    f = open(filename)
+    N = np.fromfile(f, count=3, dtype='uint32')
+    N1, N2, N3 =  N
+    data = np.fromfile(f, count=N1*N2*N3, dtype='float32')
+    f.close()
+    return np.reshape(data, (N1, N2, N3), order='C')
+
 def spherical_window_3d(radius, N, normalization=False):
     """
     Spherical window function for smoothing the fields
@@ -134,14 +146,3 @@ def plotter(grid_3d, title, slice_index=16):
     plt.title(title)
     plt.show()
 
-def fld_rdr(filename):
-    """
-    fld_rdr: field reader
-    Used for reading the obtained ionized hydrogen fields
-    """
-    f = open(filename)
-    N = np.fromfile(f, count=3, dtype='uint32')
-    N1, N2, N3 =  N
-    data = np.fromfile(f, count=N1*N2*N3, dtype='float32')
-    f.close()
-    return np.reshape(data, (N1, N2, N3), order='C')
